@@ -41,7 +41,6 @@ function LandingReservas({ goHome }) {
               <h3>Escalable y Seguro</h3>
               <p>Ideal para cualquier comercio, con soporte y actualizaciones.</p>
             </div> 
-            {/* Cambio mínimo para forzar deploy */}
           </div>
         </section>
         <section className="testimonios-section">
