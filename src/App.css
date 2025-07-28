@@ -412,3 +412,70 @@ body {
   font-weight: 600;
   font-size: 0.98rem;
 }
+
+/* Landing Web y SEO */
+.landing-web-bg {
+  background: linear-gradient(120deg, #232526 0%, #414345 60%, #61dafb 100%);
+  min-height: 100vh;
+}
+
+.hero-web {
+  padding-top: 4rem;
+  padding-bottom: 2.5rem;
+}
+
+.hero-web h1 {
+  font-size: 2.7rem;
+  font-weight: 800;
+  margin-bottom: 1.2rem;
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+.seo-section {
+  background: rgba(255,255,255,0.10);
+  border-radius: 18px;
+  box-shadow: 0 2px 12px 0 rgba(97,218,251,0.10);
+  padding: 2.2rem 1.5rem 1.5rem 1.5rem;
+  margin: 2.5rem auto 0 auto;
+  max-width: 700px;
+  color: #fff;
+  text-align: left;
+}
+.seo-section h2 {
+  color: #61dafb;
+  font-size: 1.5rem;
+  margin-bottom: 1.2rem;
+  text-align: center;
+}
+.seo-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.2rem 0;
+}
+.seo-list li {
+  margin-bottom: 0.6rem;
+  font-size: 1.08rem;
+  padding-left: 1.2em;
+  position: relative;
+}
+.seo-list li::before {
+  content: '✔️';
+  position: absolute;
+  left: 0;
+  color: #61dafb;
+  font-size: 1.1em;
+}
+.seo-desc {
+  color: #e0f7fa;
+  font-size: 1.08rem;
+  text-align: center;
+  margin-top: 1.2rem;
+}
+
+@media (max-width: 700px) {
+  .seo-section {
+    padding: 1.2rem 0.5rem;
+    max-width: 98vw;
+  }
+}
