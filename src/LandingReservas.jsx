@@ -1,6 +1,25 @@
 import './App.css'
+import { useEffect } from 'react'
 
 function LandingReservas({ goHome }) {
+  useEffect(() => {
+    // Esperar a que el DOM esté listo y luego inicializar Google Translate
+    const initGoogleTranslate = () => {
+      const element = document.getElementById('google_translate_element');
+      if (element && window.google && window.google.translate) {
+        new window.google.translate.TranslateElement({
+          pageLanguage: 'es',
+          includedLanguages: 'en,es',
+          layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
+          autoDisplay: false
+        }, 'google_translate_element');
+      }
+    };
+
+    const timer = setTimeout(initGoogleTranslate, 500);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="app-container landing-reservas-bg">
       <header className="header modern-header">
@@ -8,6 +27,7 @@ function LandingReservas({ goHome }) {
           <div className="logo-area" style={{cursor: 'pointer'}} onClick={goHome}>
             <span className="logo-text">A&M Solution</span>
           </div>
+          <div id="google_translate_element"></div>
         </div>
       </header>
       <main className="main-content">

@@ -1,6 +1,25 @@
 import './App.css'
+import { useEffect } from 'react'
 
 function LandingPaginasWeb({ goHome }) {
+  useEffect(() => {
+    // Esperar a que el DOM esté listo y luego inicializar Google Translate
+    const initGoogleTranslate = () => {
+      const element = document.getElementById('google_translate_element');
+      if (element && window.google && window.google.translate) {
+        new window.google.translate.TranslateElement({
+          pageLanguage: 'es',
+          includedLanguages: 'en,es',
+          layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
+          autoDisplay: false
+        }, 'google_translate_element');
+      }
+    };
+
+    const timer = setTimeout(initGoogleTranslate, 500);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="app-container landing-web-bg">
       <header className="header modern-header">
@@ -8,6 +27,7 @@ function LandingPaginasWeb({ goHome }) {
           <div className="logo-area" style={{cursor: 'pointer'}} onClick={goHome}>
             <span className="logo-text">A&M Solution</span>
           </div>
+          <div id="google_translate_element"></div>
         </div>
       </header>
       <main className="main-content">
@@ -61,12 +81,16 @@ function LandingPaginasWeb({ goHome }) {
           <h2>Clientes que confiaron</h2>
           <div className="testimonios-grid">
             <div className="testimonio-card">
-              <p>"Mi web se ve increíble y recibo más consultas que nunca."</p>
-              <span>- Laura, Coach</span>
+              <p>Web para reconocida empresa de columnas en Miami, pompano beach.</p>
+              <a href="https://www.stonecolumnsfl.com/#/" target="_blank" rel="noopener noreferrer">
+                  Visitar sitio
+              </a>            
             </div>
             <div className="testimonio-card">
-              <p>"El equipo entendió mi visión y la plasmó perfecto en el sitio."</p>
-              <span>- Diego, Fotógrafo</span>
+              <p>Web para empresa de construccion en Miami.</p>
+                <a href="https://mazzservicesllc.com/" target="_blank" rel="noopener noreferrer">
+                    Visitar sitio
+                </a>
             </div>
           </div>
         </section>

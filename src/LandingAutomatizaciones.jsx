@@ -1,6 +1,25 @@
 import './App.css'
+import { useEffect } from 'react'
 
 function LandingAutomatizaciones({ goHome }) {
+  useEffect(() => {
+    // Esperar a que el DOM esté listo y luego inicializar Google Translate
+    const initGoogleTranslate = () => {
+      const element = document.getElementById('google_translate_element');
+      if (element && window.google && window.google.translate) {
+        new window.google.translate.TranslateElement({
+          pageLanguage: 'es',
+          includedLanguages: 'en,es',
+          layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
+          autoDisplay: false
+        }, 'google_translate_element');
+      }
+    };
+
+    const timer = setTimeout(initGoogleTranslate, 500);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="app-container landing-auto-bg">
       <header className="header modern-header">
@@ -8,6 +27,7 @@ function LandingAutomatizaciones({ goHome }) {
           <div className="logo-area" style={{cursor: 'pointer'}} onClick={goHome}>
             <span className="logo-text">A&M Solution</span>
           </div>
+          <div id="google_translate_element"></div>
         </div>
       </header>
       <main className="main-content">
@@ -16,7 +36,7 @@ function LandingAutomatizaciones({ goHome }) {
           <p className="hero-sub">Bots, integraciones y flujos inteligentes para que tu negocio funcione solo.</p>
           <div className="hero-badges">
             <span className="badge">Google Sheets</span>
-            <span className="badge">Bots WhatsApp</span>
+            <span className="badge">Bots automatizados</span>
             <span className="badge">Notificaciones</span>
             <span className="badge">Ahorro de Tiempo</span>
           </div>
@@ -44,15 +64,15 @@ function LandingAutomatizaciones({ goHome }) {
           </div>
         </section>
         <section className="testimonios-section">
-          <h2>Historias de éxito</h2>
+          <h2>Ejemplos y casos donde aplica</h2>
           <div className="testimonios-grid">
             <div className="testimonio-card">
-              <p>"Ahora mis reportes llegan solos y no pierdo tiempo en tareas repetitivas."</p>
-              <span>- Martín, Agencia Digital</span>
+              <p>Automatizaciones para importante ecommerce de LATAM, logrando un ahorro significativo de tiempo y recursos.</p>
+              <span>Ecommerce</span>
             </div>
             <div className="testimonio-card">
-              <p>"Automatizamos WhatsApp y mejoró la atención al cliente."</p>
-              <span>- Sofía, Tienda Online</span>
+              <p>Bot de atención al cliente implementado en WhatsApp, mejorando la respuesta y satisfacción del cliente.</p>
+              <span>Proyecto del equipo</span>
             </div>
           </div>
         </section>
