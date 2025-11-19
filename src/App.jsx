@@ -49,26 +49,26 @@ function App() {
       </header>
       <main className="main-content">
         <section id="home" className="hero-section">
-          <h1>Soluciones automatizadas con IA para tu Negocio</h1>
-          <p>Impulsa tu empresa con IA.</p>
-          <a href="#contacto" className="cta-btn" onClick={() => setPage('home')}>Contacta ya</a>
+          <h1>Automatización de Tareas Repetitivas en Uruguay</h1>
+          <p>Eliminá el trabajo manual tedioso. Automatizamos procesos para que tu equipo se enfoque en lo importante.</p>
+          <a href="#contacto" className="cta-btn" onClick={() => setPage('home')}>Automatizar Ahora</a>
         </section>
         <section id="servicios" className="services-section">
-          <h2>Nuestros Servicios</h2>
+          <h2>Servicios de Automatización</h2>
           <div className="services-grid">
             <div className="service-card">
-              <h3>Automatización de procesos y tareas</h3>
-              <p>Transformá tareas repetitivas en procesos automáticos.</p>
+              <h3>Automatización de Tareas Manuales</h3>
+              <p>Eliminá tareas repetitivas: gestión de datos, reportes, emails, procesamiento de documentos y más.</p>
               <a className="cta-btn" style={{position: 'absolute', bottom: '1.5rem', left: '50%', transform: 'translateX(-50%)'}} onClick={() => setPage('automatizaciones')}>Ver más</a>
             </div>
             <div className="service-card">
-              <h3>Website, landing webs y más</h3>
-              <p>Desarrollamos sitios web a medida para tu negocio o proyecto.</p>
+              <h3>Páginas Web Automatizadas</h3>
+              <p>Sitios web con formularios inteligentes, reservas automáticas y gestión de clientes integrada.</p>
               <a className="cta-btn" style={{position: 'absolute', bottom: '1.5rem', left: '50%', transform: 'translateX(-50%)'}} onClick={() => setPage('paginasweb')}>Ver más</a>
             </div>
             <div className="service-card">
-              <h3>Otros servicios tecnologicos</h3>
-              <p>Desarrollo web, bots y recursos digitales para tu negocio.</p>
+              <h3>Integración de Sistemas</h3>
+              <p>Conectamos tus herramientas: WhatsApp, Google Calendar, CRM, hojas de cálculo y más.</p>
               <a className="cta-btn" style={{position: 'absolute', bottom: '1.5rem', left: '50%', transform: 'translateX(-50%)'}} onClick={() => setPage('reservas')}>Ver más</a>
             </div>
           </div>
