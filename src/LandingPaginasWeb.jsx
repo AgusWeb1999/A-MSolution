@@ -1,7 +1,26 @@
 import './App.css'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import './i18n'
+import LanguageSelector from './LanguageSelector'
 
 function LandingPaginasWeb({ goHome }) {
+  const { t, i18n } = useTranslation();
+  const [lang, setLang] = useState(i18n.language);
+  
+  const handleLangChange = (lng) => {
+    i18n.changeLanguage(lng);
+    setLang(lng);
+  };
+
+  // Función para scroll suave
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   useEffect(() => {
     // Esperar a que el DOM esté listo y luego inicializar Google Translate
     const initGoogleTranslate = () => {
@@ -21,86 +40,94 @@ function LandingPaginasWeb({ goHome }) {
   }, []);
 
   return (
-    <div className="app-container landing-web-bg">
-      <header className="header modern-header">
+    <div className="app-container">
+      <header className="header modern-header" role="banner">
         <div className="header-content">
           <div className="logo-area" style={{cursor: 'pointer'}} onClick={goHome}>
-            <span className="logo-text">A&M Solution</span>
+            <img src="/img/logo.jpg" alt="Logo A&M Solution - Automatización Uruguay" className="company-logo" />
+            <span className="logo-text">{t('A&M Solution')}</span>
           </div>
-          <div id="google_translate_element"></div>
+          <nav className="nav" role="navigation" aria-label="Navegación principal">
+            <ul className="nav-list">
+              <li><a href="#home" onClick={(e) => { e.preventDefault(); goHome(); }}>{t('Inicio')}</a></li>
+              <li><a href="#servicios" onClick={(e) => { e.preventDefault(); goHome(); }}>{t('Servicios')}</a></li>
+              <li><a href="#contacto" onClick={(e) => { e.preventDefault(); scrollToSection('contacto'); }}>{t('Contacto')}</a></li>
+              <li><LanguageSelector value={lang} onChange={handleLangChange} /></li>
+            </ul>
+          </nav>
         </div>
       </header>
       <main className="main-content">
         <section className="hero-section hero-web">
-          <h1>Tu Web, Tu Identidad Digital</h1>
-          <p className="hero-sub">Creamos sitios modernos, rápidos y listos para convertir visitantes en clientes.</p>
+          <h1>{t('Tu Web, Tu Identidad Digital')}</h1>
+          <p className="hero-sub">{t('Creamos sitios modernos, rápidos y listos para convertir visitantes en clientes.')}</p>
           <div className="hero-badges">
-            <span className="badge">Diseño Responsive</span>
-            <span className="badge">SEO Pro</span>
-            <span className="badge">Carga Ultra Rápida</span>
-            <span className="badge">Integración Total</span>
+            <span className="badge">{t('Diseño Responsive')}</span>
+            <span className="badge">{t('SEO Pro')}</span>
+            <span className="badge">{t('Carga Ultra Rápida')}</span>
+            <span className="badge">{t('Integración Total')}</span>
           </div>
-          <a href="#contacto" className="cta-btn cta-epic">Solicita tu web ahora</a>
+          <a href="#contacto" className="cta-btn cta-epic" onClick={(e) => { e.preventDefault(); scrollToSection('contacto'); }}>{t('Solicita tu web ahora')}</a>
         </section>
         <section className="features-section">
-          <h2>¿Por qué elegirnos?</h2>
+          <h2>{t('¿Por qué elegirnos?')}</h2>
           <div className="features-grid">
             <div className="feature-card">
-              <h3>Diseño Único</h3>
-              <p>Tu web será 100% personalizada, alineada a tu marca y objetivos.</p>
+              <h3>{t('Diseño Único')}</h3>
+              <p>{t('Tu web será 100% personalizada, alineada a tu marca y objetivos.')}</p>
             </div>
             <div className="feature-card">
-              <h3>Optimización SEO</h3>
-              <p>Posiciona tu negocio en Google y atrae más clientes. Implementamos buenas prácticas de SEO técnico, contenido optimizado y velocidad de carga para que tu web destaque en los buscadores.</p>
+              <h3>{t('Optimización SEO')}</h3>
+              <p>{t('Posiciona tu negocio en Google y atrae más clientes. Implementamos buenas prácticas de SEO técnico, contenido optimizado y velocidad de carga para que tu web destaque en los buscadores.')}</p>
             </div>
             <div className="feature-card">
-              <h3>Integraciones Inteligentes</h3>
-              <p>Conecta WhatsApp, redes sociales, analytics y más.</p>
+              <h3>{t('Integraciones Inteligentes')}</h3>
+              <p>{t('Conecta WhatsApp, redes sociales, analytics y más.')}</p>
             </div>
             <div className="feature-card">
-              <h3>Soporte Real</h3>
-              <p>Te acompañamos antes, durante y después del lanzamiento.</p>
+              <h3>{t('Soporte Real')}</h3>
+              <p>{t('Te acompañamos antes, durante y después del lanzamiento.')}</p>
             </div>
           </div>
           <div className="seo-section">
-            <h2>SEO que sí funciona 🚀</h2>
+            <h2>{t('SEO que sí funciona 🚀')}</h2>
             <ul className="seo-list">
-              <li>✔️ Estructura semántica y etiquetas HTML correctas</li>
-              <li>✔️ Meta títulos y descripciones optimizadas</li>
-              <li>✔️ URLs limpias y amigables</li>
-              <li>✔️ Imágenes comprimidas y con atributos alt</li>
-              <li>✔️ Sitemap y archivo robots.txt</li>
-              <li>✔️ Velocidad de carga sobresaliente</li>
-              <li>✔️ Integración con Google Analytics y Search Console</li>
-              <li>✔️ Estrategia de palabras clave relevante para tu rubro</li>
+              <li>{t('✔️ Estructura semántica y etiquetas HTML correctas')}</li>
+              <li>{t('✔️ Meta títulos y descripciones optimizadas')}</li>
+              <li>{t('✔️ URLs limpias y amigables')}</li>
+              <li>{t('✔️ Imágenes comprimidas y con atributos alt')}</li>
+              <li>{t('✔️ Sitemap y archivo robots.txt')}</li>
+              <li>{t('✔️ Velocidad de carga sobresaliente')}</li>
+              <li>{t('✔️ Integración con Google Analytics y Search Console')}</li>
+              <li>{t('✔️ Estrategia de palabras clave relevante para tu rubro')}</li>
             </ul>
-            <p className="seo-desc">Tu web será visible, rápida y lista para escalar posiciones en Google desde el primer día.</p>
+            <p className="seo-desc">{t('Tu web será visible, rápida y lista para escalar posiciones en Google desde el primer día.')}</p>
           </div>
         </section>
         <section className="testimonios-section">
-          <h2>Clientes que confiaron</h2>
+          <h2>{t('Clientes que confiaron')}</h2>
           <div className="testimonios-grid">
             <div className="testimonio-card">
-              <p>Web para reconocida empresa de columnas en Miami, pompano beach.</p>
+              <p>{t('Web para reconocida empresa de columnas en Miami, pompano beach.')}</p>
               <a href="https://www.stonecolumnsfl.com/#/" target="_blank" rel="noopener noreferrer">
-                  Visitar sitio
+                  {t('Visitar sitio')}
               </a>            
             </div>
             <div className="testimonio-card">
-              <p>Web para empresa de construccion en Miami.</p>
+              <p>{t('Web para empresa de construccion en Miami.')}</p>
                 <a href="https://mazzservicesllc.com/" target="_blank" rel="noopener noreferrer">
-                    Visitar sitio
+                    {t('Visitar sitio')}
                 </a>
             </div>
           </div>
         </section>
         <section id="contacto" className="contact-section">
-          <h2>¡Quiero mi web!</h2>
+          <h2>{t('¡Quiero mi web!')}</h2>
           <form className="contact-form">
-            <input type="text" placeholder="Nombre" required />
-            <input type="email" placeholder="Email" required />
-            <textarea placeholder="¿Qué web necesitas?" required></textarea>
-            <button type="submit">Solicitar propuesta</button>
+            <input type="text" placeholder={t('Nombre')} required />
+            <input type="email" placeholder={t('Email')} required />
+            <textarea placeholder={t('¿Qué web necesitas?')} required></textarea>
+            <button type="submit">{t('Solicitar propuesta')}</button>
           </form>
         </section>
       </main>
