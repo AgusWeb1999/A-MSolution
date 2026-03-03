@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://agusweb1999.github.io/A-MSolution/sitemap.xml
+Sitemap: https://tuautomatizado.com/sitemap.xml
 
 # Crawl-delay
 Crawl-delay: 1
