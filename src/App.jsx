@@ -10,6 +10,7 @@ import emailjs from '@emailjs/browser'
 
 function App() {
   const [page, setPage] = useState('home')
+  const [menuOpen, setMenuOpen] = useState(false)
 
   // Función para scroll suave
   const scrollToSection = (sectionId) => {
@@ -73,12 +74,22 @@ function App() {
           <div className="logo-area">
             <img src="/img/logo.jpg" alt="Logo A&M Solution - Automatización Uruguay" className="company-logo" />
             <span className="logo-text">{t('A&M Solution')}</span>
+            <button
+              className={`hamburger-btn${menuOpen ? ' open' : ''}`}
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label="Abrir menú de navegación"
+              aria-expanded={menuOpen}
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
           </div>
-          <nav className="nav" role="navigation" aria-label="Navegación principal">
+          <nav className={`nav${menuOpen ? ' nav-open' : ''}`} role="navigation" aria-label="Navegación principal">
             <ul className="nav-list">
-              <li><a href="#home" onClick={(e) => { e.preventDefault(); setPage('home'); setTimeout(() => scrollToSection('home'), 100); }}>{t('Inicio')}</a></li>
-              <li><a href="#servicios" onClick={(e) => { e.preventDefault(); setPage('home'); setTimeout(() => scrollToSection('servicios'), 100); }}>{t('Servicios')}</a></li>
-              <li><a href="#contacto" onClick={(e) => { e.preventDefault(); setPage('home'); setTimeout(() => scrollToSection('contacto'), 100); }}>{t('Contacto')}</a></li>
+              <li><a href="#home" onClick={(e) => { e.preventDefault(); setMenuOpen(false); setPage('home'); setTimeout(() => scrollToSection('home'), 100); }}>{t('Inicio')}</a></li>
+              <li><a href="#servicios" onClick={(e) => { e.preventDefault(); setMenuOpen(false); setPage('home'); setTimeout(() => scrollToSection('servicios'), 100); }}>{t('Servicios')}</a></li>
+              <li><a href="#contacto" onClick={(e) => { e.preventDefault(); setMenuOpen(false); setPage('home'); setTimeout(() => scrollToSection('contacto'), 100); }}>{t('Contacto')}</a></li>
               <li><LanguageSelector value={lang} onChange={handleLangChange} /></li>
             </ul>
           </nav>
@@ -153,11 +164,17 @@ function App() {
             <div className="service-card">
               <div className="service-icon">🔗</div>
               <h3>{t('Integración de Sistemas')}</h3>
-              <p>{t('Conectamos tus herramientas: WhatsApp, Google Calendar, CRM, hojas de cálculo y más.')}</p>
+              <p>{t('Conectamos tus herramientas usando n8n y otras plataformas líderes: WhatsApp, Google Calendar, CRM, hojas de cálculo y más.')}</p>
+              <div className="n8n-badge">
+                <span className="n8n-logo-badge">n8n</span>
+                <span className="n8n-badge-text">{t('Automatización visual con n8n')}</span>
+              </div>
               <ul className="service-list">
-                <li>{t('APIs y webhooks')}</li>
-                <li>{t('Sincronización automática')}</li>
+                <li>⚡ {t('Flujos visuales con n8n')}</li>
+                <li>{t('APIs, webhooks y triggers')}</li>
+                <li>{t('Sincronización automática de datos')}</li>
                 <li>{t('Notificaciones en tiempo real')}</li>
+                <li>{t('Integraciones con +400 apps')}</li>
               </ul>
               <a className="cta-btn cta-secondary" onClick={() => { setPage('reservas'); window.scrollTo(0, 0); }} aria-label="Ver más sobre integración de sistemas">{t('Más Info')}</a>
             </div>
