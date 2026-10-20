@@ -1,63 +1,36 @@
 import './App.css'
-import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import './i18n'
-import LanguageSelector from './LanguageSelector'
+import ContactForm from './ContactForm'
+import useSEO from './useSEO'
 
-function LandingAutomatizaciones({ goHome }) {
-  const { t, i18n } = useTranslation();
-  const [lang, setLang] = useState(i18n.language);
-  
-  const handleLangChange = (lng) => {
-    i18n.changeLanguage(lng);
-    setLang(lng);
-  };
+function scrollToSection(sectionId) {
+  const element = document.getElementById(sectionId);
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
 
-  // Función para scroll suave
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
+function LandingAutomatizaciones() {
+  const { t } = useTranslation();
 
-  useEffect(() => {
-    // Esperar a que el DOM esté listo y luego inicializar Google Translate
-    const initGoogleTranslate = () => {
-      const element = document.getElementById('google_translate_element');
-      if (element && window.google && window.google.translate) {
-        new window.google.translate.TranslateElement({
-          pageLanguage: 'es',
-          includedLanguages: 'en,es',
-          layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
-          autoDisplay: false
-        }, 'google_translate_element');
-      }
-    };
-
-    const timer = setTimeout(initGoogleTranslate, 500);
-    return () => clearTimeout(timer);
-  }, []);
+  useSEO({
+    path: '/automatizaciones',
+    title: 'Automatización de Procesos con Bots e IA | A&M Solution Uruguay',
+    description: 'Automatizamos procesamiento de datos, emails, reportes y sincronización de sistemas con bots a medida y n8n. Implementaciones probadas en e-commerce, retail y servicios en 1-4 semanas.',
+    keywords: 'automatización de procesos Uruguay, bots personalizados, automatización n8n, automatización de reportes, RPA Uruguay, automatización WhatsApp, sincronización de sistemas, automatización de pedidos',
+    structuredData: {
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      serviceType: 'Automatización de procesos empresariales',
+      provider: { '@type': 'ProfessionalService', name: 'A&M Solution' },
+      areaServed: { '@type': 'Country', name: 'Uruguay' },
+      description: 'Automatización de tareas manuales, procesamiento de datos, reportes y sincronización de sistemas mediante bots y herramientas como n8n.',
+    },
+  });
 
   return (
-    <div className="app-container">
-      <header className="header modern-header" role="banner">
-        <div className="header-content">
-          <div className="logo-area" style={{cursor: 'pointer'}} onClick={goHome}>
-            <img src="/img/logo.jpg" alt="Logo A&M Solution - Automatización Uruguay" className="company-logo" />
-            <span className="logo-text">{t('A&M Solution')}</span>
-          </div>
-          <nav className="nav" role="navigation" aria-label="Navegación principal">
-            <ul className="nav-list">
-              <li><a href="#home" onClick={(e) => { e.preventDefault(); goHome(); }}>{t('Inicio')}</a></li>
-              <li><a href="#servicios" onClick={(e) => { e.preventDefault(); goHome(); }}>{t('Servicios')}</a></li>
-              <li><a href="#contacto" onClick={(e) => { e.preventDefault(); scrollToSection('contacto'); }}>{t('Contacto')}</a></li>
-              <li><LanguageSelector value={lang} onChange={handleLangChange} /></li>
-            </ul>
-          </nav>
-        </div>
-      </header>
-      <main className="main-content">
+    <>
         <section className="hero-section hero-auto">
           <h1>{t('Automatiza y Gana Tiempo')}</h1>
           <p className="hero-sub">{t('Bots, integraciones y flujos inteligentes para que tu negocio funcione solo.')}</p>
@@ -125,7 +98,7 @@ function LandingAutomatizaciones({ goHome }) {
               <span className="time-badge">⏱ 2-3 {t('semanas')}</span>
             </div>
             <div className="feature-card">
-              <div className="feature-icon">🤖</div>
+              <div className="feature-icon">🧩</div>
               <h3>{t('Bots Personalizados')}</h3>
               <p>{t('Bots para atención al cliente, procesamiento de pedidos, validación de datos y tareas específicas de tu negocio.')}</p>
               <span className="time-badge">⏱ 2-4 {t('semanas')}</span>
@@ -198,7 +171,7 @@ function LandingAutomatizaciones({ goHome }) {
               <p>{t('Google Sheets, Excel, Power BI, bases de datos SQL, MongoDB')}</p>
             </div>
             <div className="tech-card">
-              <h4>{t('🤖 Automatización')}</h4>
+              <h4>{t('⚙️ Automatización')}</h4>
               <p>{t('Python, Node.js, Zapier, Make (Integromat), webhooks personalizados')}</p>
             </div>
             <div className="tech-card">
@@ -249,17 +222,15 @@ function LandingAutomatizaciones({ goHome }) {
         <section id="contacto" className="contact-section">
           <h2>{t('¿Listo para Automatizar?')}</h2>
           <p className="contact-intro">{t('Contanos qué proceso querés automatizar y te enviamos una propuesta personalizada en 48hs')}</p>
-          <form className="contact-form">
-            <input type="text" placeholder={t('Nombre')} required />
-            <input type="email" placeholder={t('Email')} required />
-            <input type="text" placeholder={t('Empresa (opcional)')} />
-            <textarea placeholder={t('¿Qué proceso querés automatizar? Contanos los detalles...')} rows="5" required></textarea>
-            <button type="submit" className="cta-btn">{t('Solicitar Presupuesto Gratuito')}</button>
-          </form>
-          <p className="contact-footer">{t('📍 Trabajamos 100% remoto desde Uruguay • ⏱️ Respuesta en menos de 24hs')}</p>
+          <ContactForm
+            source="Automatizaciones"
+            showCompany
+            messagePlaceholder={t('¿Qué proceso querés automatizar? Contanos los detalles...')}
+            submitLabel={t('Solicitar Presupuesto Gratuito')}
+            footerNote={t('📍 Trabajamos 100% remoto desde Uruguay • ⏱️ Respuesta en menos de 24hs')}
+          />
         </section>
-      </main>
-    </div>
+    </>
   )
 }
 

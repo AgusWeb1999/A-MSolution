@@ -1,63 +1,36 @@
 import './App.css'
-import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import './i18n'
-import LanguageSelector from './LanguageSelector'
+import ContactForm from './ContactForm'
+import useSEO from './useSEO'
 
-function LandingReservas({ goHome }) {
-  const { t, i18n } = useTranslation();
-  const [lang, setLang] = useState(i18n.language);
-  
-  const handleLangChange = (lng) => {
-    i18n.changeLanguage(lng);
-    setLang(lng);
-  };
+function scrollToSection(sectionId) {
+  const element = document.getElementById(sectionId);
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
 
-  // Función para scroll suave
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
+function LandingReservas() {
+  const { t } = useTranslation();
 
-  useEffect(() => {
-    // Esperar a que el DOM esté listo y luego inicializar Google Translate
-    const initGoogleTranslate = () => {
-      const element = document.getElementById('google_translate_element');
-      if (element && window.google && window.google.translate) {
-        new window.google.translate.TranslateElement({
-          pageLanguage: 'es',
-          includedLanguages: 'en,es',
-          layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
-          autoDisplay: false
-        }, 'google_translate_element');
-      }
-    };
-
-    const timer = setTimeout(initGoogleTranslate, 500);
-    return () => clearTimeout(timer);
-  }, []);
+  useSEO({
+    path: '/reservas',
+    title: 'Asistente de Reservas con WhatsApp e IA | A&M Solution Uruguay',
+    description: 'Automatizá tu agenda con un asistente que confirma reservas 24/7 por WhatsApp, se integra con Google Calendar y elimina los olvidos. Ideal para estética, barbería y comercios con turnos.',
+    keywords: 'asistente de reservas automatico, reservas por WhatsApp, automatizacion de agenda, integracion Google Calendar, bot de turnos Uruguay, software de reservas para comercios',
+    structuredData: {
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      serviceType: 'Asistente automático de reservas',
+      provider: { '@type': 'ProfessionalService', name: 'A&M Solution' },
+      areaServed: { '@type': 'Country', name: 'Uruguay' },
+      description: 'Asistente de reservas automático integrado con WhatsApp y Google Calendar, disponible 24/7 sin intervención humana.',
+    },
+  });
 
   return (
-    <div className="app-container">
-      <header className="header modern-header" role="banner">
-        <div className="header-content">
-          <div className="logo-area" style={{cursor: 'pointer'}} onClick={goHome}>
-            <img src="/img/logo.jpg" alt="Logo A&M Solution - Automatización Uruguay" className="company-logo" />
-            <span className="logo-text">{t('A&M Solution')}</span>
-          </div>
-          <nav className="nav" role="navigation" aria-label="Navegación principal">
-            <ul className="nav-list">
-              <li><a href="#home" onClick={(e) => { e.preventDefault(); goHome(); }}>{t('Inicio')}</a></li>
-              <li><a href="#servicios" onClick={(e) => { e.preventDefault(); goHome(); }}>{t('Servicios')}</a></li>
-              <li><a href="#contacto" onClick={(e) => { e.preventDefault(); scrollToSection('contacto'); }}>{t('Contacto')}</a></li>
-              <li><LanguageSelector value={lang} onChange={handleLangChange} /></li>
-            </ul>
-          </nav>
-        </div>
-      </header>
-      <main className="main-content">
+    <>
         <section className="hero-section hero-reservas">
           <h1>{t('El Asistente de Reservas Definitivo')}</h1>
           <p className="hero-sub">{t('Automatiza tu agenda, ahorra tiempo y sorprende a tus clientes.')}</p>
@@ -87,8 +60,7 @@ function LandingReservas({ goHome }) {
             <div className="feature-card">
               <h3>{t('Escalable y Seguro')}</h3>
               <p>{t('Ideal para cualquier comercio, con soporte y actualizaciones.')}</p>
-            </div> 
-            {/* Cambio mínimo para forzar deploy */}
+            </div>
           </div>
         </section>
         <section className="testimonios-section">
@@ -106,15 +78,12 @@ function LandingReservas({ goHome }) {
         </section>
         <section id="contacto" className="contact-section">
           <h2>{t('¡Quiero mi demo!')}</h2>
-          <form className="contact-form">
-            <input type="text" placeholder={t('Nombre')} required />
-            <input type="email" placeholder={t('Email')} required />
-            <textarea placeholder={t('Mensaje')} required></textarea>
-            <button type="submit">{t('Solicitar demo')}</button>
-          </form>
+          <ContactForm
+            source="Reservas"
+            submitLabel={t('Solicitar demo')}
+          />
         </section>
-      </main>
-    </div>
+    </>
   )
 }
 

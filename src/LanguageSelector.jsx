@@ -17,21 +17,21 @@ export default function LanguageSelector({ value, onChange }) {
           control: (base) => ({
             ...base,
             borderRadius: 18,
-            background: 'linear-gradient(135deg, #1cb5e0 0%, #61dafb 100%)',
-            color: '#0a0e27',
+            background: '#a3e635',
+            color: '#0a0e16',
             fontWeight: 600,
-            boxShadow: '0 4px 16px rgba(97,218,251,0.18)',
+            boxShadow: '0 4px 16px rgba(163,230,53,0.18)',
             border: 'none',
             minHeight: 38,
           }),
-          singleValue: (base) => ({ ...base, color: '#0a0e27', fontWeight: 600 }),
-          menu: (base) => ({ 
-            ...base, 
-            borderRadius: 12, 
-            boxShadow: '0 4px 16px rgba(97,218,251,0.18)',
-            background: 'rgba(10, 14, 39, 0.95)',
+          singleValue: (base) => ({ ...base, color: '#0a0e16', fontWeight: 600 }),
+          menu: (base) => ({
+            ...base,
+            borderRadius: 12,
+            boxShadow: '0 4px 16px rgba(163,230,53,0.18)',
+            background: 'rgba(10, 14, 22, 0.97)',
             backdropFilter: 'blur(16px)',
-            border: '1px solid rgba(97, 218, 251, 0.2)'
+            border: '1px solid rgba(163, 230, 53, 0.2)'
           }),
           menuList: (base) => ({
             ...base,
@@ -41,8 +41,8 @@ export default function LanguageSelector({ value, onChange }) {
           option: (base, state) => ({
             ...base,
             borderRadius: 10,
-            background: state.isFocused ? 'linear-gradient(135deg, #61dafb 0%, #1cb5e0 100%)' : 'rgba(255, 255, 255, 0.05)',
-            color: state.isFocused ? '#fff' : '#61dafb',
+            background: state.isFocused ? 'rgba(163, 230, 53, 0.9)' : 'rgba(255, 255, 255, 0.05)',
+            color: state.isFocused ? '#0a0e16' : '#a3e635',
             fontWeight: 600,
             margin: '0.2rem 0',
             cursor: 'pointer'

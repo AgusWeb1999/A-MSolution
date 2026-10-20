@@ -1,63 +1,36 @@
 import './App.css'
-import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import './i18n'
-import LanguageSelector from './LanguageSelector'
+import ContactForm from './ContactForm'
+import useSEO from './useSEO'
 
-function LandingPaginasWeb({ goHome }) {
-  const { t, i18n } = useTranslation();
-  const [lang, setLang] = useState(i18n.language);
-  
-  const handleLangChange = (lng) => {
-    i18n.changeLanguage(lng);
-    setLang(lng);
-  };
+function scrollToSection(sectionId) {
+  const element = document.getElementById(sectionId);
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
 
-  // Función para scroll suave
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
+function LandingPaginasWeb() {
+  const { t } = useTranslation();
 
-  useEffect(() => {
-    // Esperar a que el DOM esté listo y luego inicializar Google Translate
-    const initGoogleTranslate = () => {
-      const element = document.getElementById('google_translate_element');
-      if (element && window.google && window.google.translate) {
-        new window.google.translate.TranslateElement({
-          pageLanguage: 'es',
-          includedLanguages: 'en,es',
-          layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
-          autoDisplay: false
-        }, 'google_translate_element');
-      }
-    };
-
-    const timer = setTimeout(initGoogleTranslate, 500);
-    return () => clearTimeout(timer);
-  }, []);
+  useSEO({
+    path: '/paginas-web',
+    title: 'Desarrollo Web a Medida con SEO Real | A&M Solution Uruguay',
+    description: 'Diseñamos y desarrollamos sitios web rápidos, responsive y optimizados para SEO. Sitios reales entregados a clientes en Uruguay y Estados Unidos. Integración con WhatsApp, analytics y reservas.',
+    keywords: 'desarrollo web Uruguay, diseño web responsive, páginas web SEO Uruguay, landing page Uruguay, desarrollo web a medida, diseño de sitios web rápidos, SEO técnico Uruguay',
+    structuredData: {
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      serviceType: 'Desarrollo de sitios web',
+      provider: { '@type': 'ProfessionalService', name: 'A&M Solution' },
+      areaServed: { '@type': 'Country', name: 'Uruguay' },
+      description: 'Sitios web responsive con SEO técnico, formularios inteligentes e integraciones, optimizados para velocidad de carga y conversión.',
+    },
+  });
 
   return (
-    <div className="app-container">
-      <header className="header modern-header" role="banner">
-        <div className="header-content">
-          <div className="logo-area" style={{cursor: 'pointer'}} onClick={goHome}>
-            <img src="/img/logo.jpg" alt="Logo A&M Solution - Automatización Uruguay" className="company-logo" />
-            <span className="logo-text">{t('A&M Solution')}</span>
-          </div>
-          <nav className="nav" role="navigation" aria-label="Navegación principal">
-            <ul className="nav-list">
-              <li><a href="#home" onClick={(e) => { e.preventDefault(); goHome(); }}>{t('Inicio')}</a></li>
-              <li><a href="#servicios" onClick={(e) => { e.preventDefault(); goHome(); }}>{t('Servicios')}</a></li>
-              <li><a href="#contacto" onClick={(e) => { e.preventDefault(); scrollToSection('contacto'); }}>{t('Contacto')}</a></li>
-              <li><LanguageSelector value={lang} onChange={handleLangChange} /></li>
-            </ul>
-          </nav>
-        </div>
-      </header>
-      <main className="main-content">
+    <>
         <section className="hero-section hero-web">
           <h1>{t('Tu Web, Tu Identidad Digital')}</h1>
           <p className="hero-sub">{t('Creamos sitios modernos, rápidos y listos para convertir visitantes en clientes.')}</p>
@@ -93,10 +66,10 @@ function LandingPaginasWeb({ goHome }) {
             <h2>{t('SEO que sí funciona 🚀')}</h2>
             <ul className="seo-list">
               <li>{t('✔️ Estructura semántica y etiquetas HTML correctas')}</li>
-              <li>{t('✔️ Meta títulos y descripciones optimizadas')}</li>
-              <li>{t('✔️ URLs limpias y amigables')}</li>
+              <li>{t('✔️ Meta títulos y descripciones optimizadas por página')}</li>
+              <li>{t('✔️ URLs limpias y amigables, sin fragmentos ni hashes')}</li>
               <li>{t('✔️ Imágenes comprimidas y con atributos alt')}</li>
-              <li>{t('✔️ Sitemap y archivo robots.txt')}</li>
+              <li>{t('✔️ Sitemap, robots.txt y datos estructurados (Schema.org)')}</li>
               <li>{t('✔️ Velocidad de carga sobresaliente')}</li>
               <li>{t('✔️ Integración con Google Analytics y Search Console')}</li>
               <li>{t('✔️ Estrategia de palabras clave relevante para tu rubro')}</li>
@@ -104,34 +77,40 @@ function LandingPaginasWeb({ goHome }) {
             <p className="seo-desc">{t('Tu web será visible, rápida y lista para escalar posiciones en Google desde el primer día.')}</p>
           </div>
         </section>
-        <section className="testimonios-section">
+        <section className="use-cases-section">
           <h2>{t('Clientes que confiaron')}</h2>
-          <div className="testimonios-grid">
-            <div className="testimonio-card">
-              <p>{t('Web para reconocida empresa de columnas en Miami, pompano beach.')}</p>
-              <a href="https://www.stonecolumnsfl.com/#/" target="_blank" rel="noopener noreferrer">
-                  {t('Visitar sitio')}
-              </a>            
+          <div className="use-cases-grid">
+            <div className="use-case-card">
+              <div className="use-case-header">
+                <h3>{t('Empresa de columnas arquitectónicas')}</h3>
+                <span className="industry-tag">{t('Miami, EE.UU.')}</span>
+              </div>
+              <p className="use-case-solution">{t('Web para reconocida empresa de columnas en Miami, Pompano Beach: catálogo de productos, diseño a medida y presencia profesional para captar clientes de diseño y construcción.')}</p>
+              <div className="use-case-results">
+                <a href="https://www.stonecolumnsfl.com/#/" target="_blank" rel="noopener noreferrer" className="result-badge">{t('🔗 Visitar sitio')}</a>
+              </div>
             </div>
-            <div className="testimonio-card">
-              <p>{t('Web para empresa de construccion en Miami.')}</p>
-                <a href="https://mazzservicesllc.com/" target="_blank" rel="noopener noreferrer">
-                    {t('Visitar sitio')}
-                </a>
+            <div className="use-case-card">
+              <div className="use-case-header">
+                <h3>{t('Empresa de construcción')}</h3>
+                <span className="industry-tag">{t('Miami, EE.UU.')}</span>
+              </div>
+              <p className="use-case-solution">{t('Web para empresa de construcción en Miami: presentación de servicios, formulario de contacto optimizado y diseño responsive pensado para captar leads locales.')}</p>
+              <div className="use-case-results">
+                <a href="https://mazzservicesllc.com/" target="_blank" rel="noopener noreferrer" className="result-badge">{t('🔗 Visitar sitio')}</a>
+              </div>
             </div>
           </div>
         </section>
         <section id="contacto" className="contact-section">
           <h2>{t('¡Quiero mi web!')}</h2>
-          <form className="contact-form">
-            <input type="text" placeholder={t('Nombre')} required />
-            <input type="email" placeholder={t('Email')} required />
-            <textarea placeholder={t('¿Qué web necesitas?')} required></textarea>
-            <button type="submit">{t('Solicitar propuesta')}</button>
-          </form>
+          <ContactForm
+            source="Páginas Web"
+            messagePlaceholder={t('¿Qué web necesitas?')}
+            submitLabel={t('Solicitar propuesta')}
+          />
         </section>
-      </main>
-    </div>
+    </>
   )
 }
 
